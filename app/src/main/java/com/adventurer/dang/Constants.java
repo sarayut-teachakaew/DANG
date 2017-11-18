@@ -11,6 +11,10 @@ public class Constants {
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
 
+    public static int SCREEN_SCALE;
+
+    public static int VISIBLR_RANGE=1400;
+
     public static int TILE_SIZE=200;
     public static int CB_SIZE=100;
     public static int TOWER_WIDTH=200;

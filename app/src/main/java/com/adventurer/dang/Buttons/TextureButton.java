@@ -62,11 +62,14 @@ public class TextureButton implements MyButton{
     public void setDestPosY(float y){this.destPos = new Point(destPos.x,(int)y);}
     public int getX(){return destPos.x;}
     public int getY(){return destPos.y;}
-
+    public Point getPos(){return new Point(destPos);}
     public TextureButton(Point position,int width,int height,Bitmap texture){
         this(position,width,height,texture,position);
     }
     public void draw(Canvas canvas){
+        draw(canvas,texture);
+    }
+    public void draw(Canvas canvas,Bitmap newPic){
         if (posX != destPos.x || posY !=destPos.y) {
             posX += (destPos.x-posX)/5;
             posY += (destPos.y-posY)/5;
@@ -79,9 +82,9 @@ public class TextureButton implements MyButton{
             Rect panR = new Rect(rect.left+Constants.DRAG_DIST.x,rect.top+Constants.DRAG_DIST.y
                     ,rect.right+Constants.DRAG_DIST.x,rect.bottom+Constants.DRAG_DIST.y);
             if(panR.left<Constants.SCREEN_WIDTH&&panR.top<Constants.SCREEN_HEIGHT&&panR.right>0&&panR.bottom>0)
-                canvas.drawBitmap(texture,null, panR,new Paint());
+                canvas.drawBitmap(newPic,null, panR,new Paint());
         }
-        else canvas.drawBitmap(texture,null, rect,new Paint());
+        else canvas.drawBitmap(newPic,null, rect,new Paint());
     }
 
     @Override

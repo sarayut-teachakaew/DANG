@@ -16,6 +16,7 @@ public class Text {
     public boolean isImmortal = true;
     private String txt=null;
     private Paint paint;
+    private int distY=0;
     public Text(Point curPos,Point destPos, String txt, int textColor, int textSize,float timeSec){
         this(curPos,destPos, txt, textColor, textSize);
         isImmortal = false;
@@ -41,6 +42,10 @@ public class Text {
         paint.setTextSize(textSize);
         timeStart = System.currentTimeMillis();
     }
+    public Text(Point curPos,Point destPos, String txt, int textColor, int textSize,int distY){
+        this(curPos,destPos,txt,textColor,textSize);
+        this.distY=distY;
+    }
     public Text(Point curPos,Point destPos, String txt, int textColor){
         this(curPos,destPos, txt, textColor, 50);
     }
@@ -63,7 +68,7 @@ public class Text {
             paint.setTextAlign(Paint.Align.CENTER);
             Rect result = new Rect();
             paint.getTextBounds(txt, 0, txt.length(), result);
-            canvas.drawText(txt,(int) posX,(int) posY+result.height()/2, paint);
+            canvas.drawText(txt,(int) posX,(int) posY+result.height()/2+distY, paint);
         }
     }
     public void drawRotate(Canvas canvas){
@@ -76,5 +81,10 @@ public class Text {
         canvas.rotate(rot+90,posX,posY);
         draw(canvas);
         canvas.restore();
+    }
+    public void setPos(Point pos){
+        posX=pos.x;
+        posY=pos.y;
+        destPos=new Point(pos);
     }
 }

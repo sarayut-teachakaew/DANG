@@ -4,7 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 
+import com.adventurer.dang.Scenes.GameScene;
 import com.adventurer.dang.Tiles.Tile;
+import com.adventurer.dang.Tiles.TileObject;
 import com.adventurer.dang.Towers.MoneyTower;
 import com.adventurer.dang.Towers.ShootTower;
 import com.adventurer.dang.Towers.SparkTower;
@@ -12,6 +14,8 @@ import com.adventurer.dang.Towers.Tower;
 import com.adventurer.dang.Towers.WallTower;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by x_x on 6/11/2560.
@@ -49,21 +53,24 @@ public class Backpack {
         delC.add(card);
     }
 
-    public static void createTower(Card card){
-        if(sTile !=null)switch (card.getType()){
-            case Tower.MONEY:sTile.createTower(new MoneyTower(sTile,card));break;
-            case Tower.WALL:sTile.createTower(new WallTower(sTile,card));break;
-            case Tower.SHOOT:sTile.createTower(new ShootTower(sTile,card));break;
-            case Tower.SPARK:sTile.createTower(new SparkTower(sTile,card));break;
-        }
+    public static boolean createTower(Card card){
+        if(sTile !=null) switch (card.getType()){
+                case Tower.MONEY:return sTile.createTower(new MoneyTower(sTile,card));
+                case Tower.WALL:return sTile.createTower(new WallTower(sTile,card));
+                case Tower.SHOOT:return sTile.createTower(new ShootTower(sTile,card));
+                case Tower.SPARK:return sTile.createTower(new SparkTower(sTile,card));
+            }
+
+        return false;
     }
     @NonNull
     public static Boolean click(Point CP){
         if(!onOpen)return false;
         for(int i=0;i<cards.size();i++)if(cards.get(i).hitCheck(CP)){
-            createTower(cards.get(i));
-            delCard(cards.get(i));
-            close();
+            if(createTower(cards.get(i))) {
+                delCard(cards.get(i));
+                close();
+            }
             return true;
         }
         close();
@@ -71,7 +78,16 @@ public class Backpack {
     }
 
     public static void update(){
-        if(addC != null)for(Card c: addC)cards.add(c);
+        if(addC != null){
+            for(Card c: addC)cards.add(c);
+            Collections.sort(cards,new Comparator<Card>() {
+                @Override
+                public int compare(Card a, Card b)
+                {
+                    return  b.getRarity()-a.getRarity();
+                }
+            });
+        }
         addC= new ArrayList<>();
         if(delC!=null)for(Card c: delC)cards.remove(c);
         delC= new ArrayList<>();
@@ -84,4 +100,5 @@ public class Backpack {
     }
 
     public static int getWidth(){return cards.size()*Constants.CARD_WIDTH;}
+    public static Tile getSTile(){return sTile;}
 }

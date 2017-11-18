@@ -1,14 +1,10 @@
 package com.adventurer.dang.Tiles;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
-import com.adventurer.dang.Backpack;
 import com.adventurer.dang.Buttons.TextureButton;
 import com.adventurer.dang.Constants;
-import com.adventurer.dang.R;
 import com.adventurer.dang.Scenes.GameScene;
 import com.adventurer.dang.Towers.AllTower;
 
@@ -20,12 +16,13 @@ public class BoulderTile extends TextureButton implements Tile  {
     private TextureButton CirBut[];
     boolean onOpen = false,ownsTower=false;
     private TileManager tileMan;
+    private boolean seen = true;
 
     public static int CB_BUY=0,CB_CANCEL=1;
 
     public BoulderTile(Point position,TileManager TM){
         super(position, Constants.TILE_SIZE,Constants.TILE_SIZE
-                ,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.boulder_tile));
+                ,GameScene.pic.boulder_tile);
 
         tileMan=TM;
 
@@ -40,8 +37,19 @@ public class BoulderTile extends TextureButton implements Tile  {
     }
 
     @Override
+    public boolean isWalkable() {
+        return false;
+    }
+
+    @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
+
+    }
+
+    @Override
+    public void drawFloor(Canvas canvas) {
+        if(seen)super.draw(canvas);
+        else super.draw(canvas,GameScene.pic.unseen_tile);
     }
 
     public void drawCB(Canvas canvas) {
@@ -57,7 +65,12 @@ public class BoulderTile extends TextureButton implements Tile  {
     }
     @Override
     public void update() {
-
+        if(((getX()-tileMan.player.getX())*(getX()-tileMan.player.getX())+(getY()-tileMan.player.getY())*(getY()-tileMan.player.getY()))
+                >(Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)*(Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)){
+            seen=false;
+            close();
+        }
+        else seen = true;
     }
 
     public void open(){
@@ -78,7 +91,22 @@ public class BoulderTile extends TextureButton implements Tile  {
 
     }
     @Override
-    public void createTower(AllTower tt) {
+    public boolean createTower(AllTower tt) {
+        return false;
+    }
 
+    @Override
+    public AllTower getTower() {
+        return null;
+    }
+
+    @Override
+    public void pushHp(float hp) {
+
+    }
+
+    @Override
+    public TileManager getTileMan() {
+        return tileMan;
     }
 }

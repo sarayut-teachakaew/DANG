@@ -41,12 +41,12 @@ public class MenuScene implements Scene {
             case MotionEvent.ACTION_DOWN:
                 ball.setPos(event.getX(),event.getY());
                 ball.pop("POP");
-                //ball.speak("ไม่อยากกินต้มไก่");
+                //ball.addText("ไม่อยากกินต้มไก่");
                 break;
             case MotionEvent.ACTION_UP:
                 if(playButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))) {
                     manager.reGame();
-                    manager.ACTIVE_SCENE = 1;
+                    manager.activeScene = SceneManager.GAME_SCENE;
                     terminate();
                 }
         }

@@ -2,7 +2,6 @@ package com.adventurer.dang;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -31,27 +30,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         sceneMan = new SceneManager();
 
         setFocusable(true);
-
-        Backpack.addCard(new Card(new Point(0,0),Card.MONEY_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.WALL_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SHOOT_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SPARK_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.MONEY_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.WALL_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SHOOT_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SPARK_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.MONEY_TOWER));
-        /*Backpack.addCard(new Card(new Point(0,0),Card.WALL_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SHOOT_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SPARK_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.MONEY_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.WALL_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SHOOT_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SPARK_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.MONEY_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.WALL_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SHOOT_TOWER));
-        Backpack.addCard(new Card(new Point(0,0),Card.SPARK_TOWER));*/
     }
 
     @Override

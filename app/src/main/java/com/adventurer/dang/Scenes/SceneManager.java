@@ -1,7 +1,12 @@
 package com.adventurer.dang.Scenes;
 
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.view.MotionEvent;
+
+import com.adventurer.dang.Backpack;
+import com.adventurer.dang.Card;
+import com.adventurer.dang.Pic;
 
 import java.util.ArrayList;
 
@@ -11,29 +16,53 @@ import java.util.ArrayList;
 
 public class SceneManager {
     private ArrayList<Scene> scenes = new ArrayList<>();
-    public static int ACTIVE_SCENE;
+    public static int MENU_SCENE=0,GAME_SCENE=1;
+    public int activeScene;
+    public static Pic pic;
 
     public SceneManager(){
-        ACTIVE_SCENE = 0;
+        pic = new Pic(-1);
+        Backpack.addCard(new Card(Card.MONEY_TOWER));
+        Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.SHOOT_TOWER));
+        Backpack.addCard(new Card(Card.SPARK_TOWER));
+        Backpack.addCard(new Card(Card.MONEY_TOWER));
+        Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.SHOOT_TOWER));
+        Backpack.addCard(new Card(Card.SPARK_TOWER));
+        Backpack.addCard(new Card(Card.MONEY_TOWER));
+        /*Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.SHOOT_TOWER));
+        Backpack.addCard(new Card(Card.SPARK_TOWER));
+        Backpack.addCard(new Card(Card.MONEY_TOWER));
+        Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.SHOOT_TOWER));
+        Backpack.addCard(new Card(Card.SPARK_TOWER));
+        Backpack.addCard(new Card(Card.MONEY_TOWER));
+        Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.SHOOT_TOWER));
+        Backpack.addCard(new Card(Card.SPARK_TOWER));*/
+
+        activeScene = 0;
         scenes.add(new MenuScene(this));
         scenes.add(null);
     }
 
     public void reGame(){
-        scenes.set(1,new GameScene(this));
+        scenes.set(GAME_SCENE,new GameScene(this));
     }
     public void freeGame(){
-        scenes.set(1,null);
+        scenes.set(GAME_SCENE,null);
     }
 
     public void recieveTouch(MotionEvent event){
-        scenes.get(ACTIVE_SCENE).recieveTouch(event);
+        scenes.get(activeScene).recieveTouch(event);
     }
 
     public void update() {
-        scenes.get(ACTIVE_SCENE).update();
+        scenes.get(activeScene).update();
     }
     public void draw(Canvas canvas){
-        scenes.get(ACTIVE_SCENE).draw(canvas);
+        scenes.get(activeScene).draw(canvas);
     }
 }
