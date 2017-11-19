@@ -113,9 +113,6 @@ public class Tower extends TextureButton implements TileObject {
     }
 
     public void update() {
-        if(hp>maxHp)hp=maxHp;
-        if(hp<=0)die();
-
         if(upSec>0){
             if(Math.random()*100<LUCK)addStat();
         }
@@ -174,6 +171,8 @@ public class Tower extends TextureButton implements TileObject {
         if(value<0)balloon.pop(""+(int)-value, Color.rgb(255,99,71));
         if(value>0)balloon.pop(""+(int)value,Color.rgb(173,255,47));
         hp+=value;
+        if(hp>maxHp)hp=maxHp;
+        if(hp<=0)die();
     }
     public Card getCard(){
         return card;

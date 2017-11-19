@@ -22,7 +22,10 @@ public class SceneManager {
 
     public SceneManager(){
         pic = new Pic(-1);
-        Backpack.addCard(new Card(Card.MONEY_TOWER));
+
+        Backpack.loadCard();
+
+        /*Backpack.addCard(new Card(Card.MONEY_TOWER));
         Backpack.addCard(new Card(Card.WALL_TOWER));
         Backpack.addCard(new Card(Card.SHOOT_TOWER));
         Backpack.addCard(new Card(Card.SPARK_TOWER));
@@ -31,7 +34,7 @@ public class SceneManager {
         Backpack.addCard(new Card(Card.SHOOT_TOWER));
         Backpack.addCard(new Card(Card.SPARK_TOWER));
         Backpack.addCard(new Card(Card.MONEY_TOWER));
-        /*Backpack.addCard(new Card(Card.WALL_TOWER));
+        Backpack.addCard(new Card(Card.WALL_TOWER));
         Backpack.addCard(new Card(Card.SHOOT_TOWER));
         Backpack.addCard(new Card(Card.SPARK_TOWER));
         Backpack.addCard(new Card(Card.MONEY_TOWER));

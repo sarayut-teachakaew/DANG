@@ -71,8 +71,10 @@ public class GameScene implements Scene {
         moneyTxt.draw(canvas);
     }
     public void terminate(){
+        Backpack.close();
         tileMan.delAllTower();
         manager.freeGame();
+        Constants.DRAG_DIST=new Point(0,0);
     }
     public void recieveTouch(MotionEvent event){
         if(ctrMove.isActive()&&ctrFire.isActive()&&event.getActionMasked()==MotionEvent.ACTION_POINTER_UP){

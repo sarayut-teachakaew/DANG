@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import com.adventurer.dang.Backpack;
 import com.adventurer.dang.Balloon;
 import com.adventurer.dang.Buttons.FullBar;
 import com.adventurer.dang.Constants;
@@ -69,8 +70,6 @@ public class SimpleBoukensha implements Boukensha{
 
     @Override
     public void update() {
-        if(hp>maxHp)hp=maxHp;
-        if(hp<=0) die();
         move(ax,ay);
         ax*=0.95;
         ay*=0.95;
@@ -79,6 +78,13 @@ public class SimpleBoukensha implements Boukensha{
     @Override
     public void die() {
         manager.delBoukensha(this);
+//        Backpack.score++;
+//
+//        if(Math.random()>0.9){
+//            manager.alert.pop("Get Coin !!!",Color.rgb(0,0,0));
+//            Backpack.COIN++;
+//
+//        }
     }
 
     @Override
@@ -103,6 +109,7 @@ public class SimpleBoukensha implements Boukensha{
                     mx--;
                     if (mx < 0) mx = 0;
                 }
+                //ax/=1.1;ay/=1.1;
                 moveStuck++;
                 if(count>Constants.SCREEN_WIDTH){
                     mx=0;
@@ -118,6 +125,7 @@ public class SimpleBoukensha implements Boukensha{
                     my--;
                     if (my < 0) my = 0;
                 }
+                //ax/=1.1;ay/=1.1;
                 moveStuck++;
                 if(count>Constants.SCREEN_WIDTH){
                     my=0;
@@ -144,8 +152,8 @@ public class SimpleBoukensha implements Boukensha{
                 y = manager.getHeight();
                 moveStuck++;
             }
-
             if (saveMS == moveStuck) if (Math.random() > 0.8) moveStuck = 0;
+            //if(Math.abs(ax)+Math.abs(ay)>0.00001&&moveStuck!=0) System.out.println("=========================="+moveStuck);
 
         }catch (Exception e){};
     }
@@ -156,6 +164,8 @@ public class SimpleBoukensha implements Boukensha{
         if(value<0)balloon.pop(""+(int)-value,Color.rgb(255,99,71));
         if(value>0)balloon.pop(""+(int)value,Color.rgb(173,255,47));
         hp+=value;
+        if(hp>maxHp)hp=maxHp;
+        if(hp<=0)die();
     }
     @Override
     public void setAction(int action) {

@@ -1,12 +1,16 @@
 package com.adventurer.dang.Scenes;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.view.MotionEvent;
 
+import com.adventurer.dang.Backpack;
 import com.adventurer.dang.Balloon;
 import com.adventurer.dang.Buttons.RectButton;
+import com.adventurer.dang.Buttons.TextureButton;
+import com.adventurer.dang.Card;
 import com.adventurer.dang.Constants;
 
 /**
@@ -16,21 +20,38 @@ import com.adventurer.dang.Constants;
 public class MenuScene implements Scene {
     private SceneManager manager;
     private RectButton playButton;
+    TextureButton coinBut;
+    Card newCard=null;Boolean openCard=false;
     Balloon ball;
+
     public MenuScene(SceneManager manager){
         this.manager = manager;
         setButton();
         ball = new Balloon();
+
     }
     public void setButton(){
-        playButton = new RectButton(300,200,new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2),Color.rgb(176,196,222),"PLAY",Color.rgb(240,255,255));
+        playButton = new RectButton(Constants.SCREEN_SCALE*300,Constants.SCREEN_SCALE*200
+                ,new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2)
+                ,Color.rgb(176,196,222),"PLAY",Color.rgb(240,255,255));
+
+        int cWi=(int)(Constants.SCREEN_SCALE*300),cHi=(int)(Constants.SCREEN_SCALE*300);
+        coinBut = new TextureButton(new Point(Constants.SCREEN_WIDTH-cWi,Constants.SCREEN_HEIGHT-cHi),cWi,cHi,SceneManager.pic.coin_pic);
+        coinBut.panPic=false;
     }
     public void update(){
-
+        if(!openCard&&newCard!=null&& newCard.isDest()){
+            newCard=null;
+        }
     }
     public void draw(Canvas canvas){
         canvas.drawColor(Color.rgb(245,255,250));
+
         playButton.draw(canvas);
+        coinBut.draw(canvas);
+
+        if(newCard!=null)newCard.draw(canvas);
+
         ball.draw(canvas);
     }
     public void terminate(){
@@ -40,16 +61,34 @@ public class MenuScene implements Scene {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 ball.setPos(event.getX(),event.getY());
-                System.out.println(Constants.VISIBLR_RANGE);
-                ball.pop("POP");
+                if(coinBut.hitCheck(new Point((int)event.getX(),(int)event.getY())))ball.pop("โฮ่ง");
+                else ball.pop("POP");
                 //ball.addText("ไม่อยากกินต้มไก่");
                 break;
             case MotionEvent.ACTION_UP:
-                if(playButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))) {
+
+                if(openCard&&newCard!=null){
+                    newCard.setDestPos(Constants.SCREEN_WIDTH/4,-newCard.height);
+                    openCard = false;
+
+                }
+                if(coinBut.hitCheck(new Point((int)event.getX(),(int)event.getY()))){
+                    newCard = new Card();
+                    newCard.width = (int)(Constants.SCREEN_SCALE*600);
+                    newCard.height = (int)(Constants.SCREEN_SCALE*900);
+                    newCard.setStartPos(Constants.SCREEN_WIDTH/4,Constants.SCREEN_HEIGHT+newCard.height/2);
+                    newCard.setDestPos(Constants.SCREEN_WIDTH/4,Constants.SCREEN_HEIGHT/2);
+                    Backpack.addCard(newCard);
+
+                    openCard=true;
+                }
+                else if(playButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))) {
                     manager.reGame();
                     manager.activeScene = SceneManager.GAME_SCENE;
                     terminate();
                 }
+                break;
+
         }
     }
 }

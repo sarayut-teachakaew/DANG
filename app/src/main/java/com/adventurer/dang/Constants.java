@@ -13,7 +13,7 @@ public class Constants {
 
     public static float SCREEN_SCALE;
 
-    public static int VISIBLR_RANGE=1000;
+    public static int VISIBLR_RANGE=14000;
 
     public static int TILE_SIZE=200;
     public static int CB_SIZE=100;
@@ -21,6 +21,8 @@ public class Constants {
     public static int TOWER_HEIGHT=300;
     public static int CARD_WIDTH=200;
     public static int CARD_HEIGHT=300;
+
+    public static MainActivity mainActivity;
 
     public static Point DRAG_DIST = new Point(0,0);
 

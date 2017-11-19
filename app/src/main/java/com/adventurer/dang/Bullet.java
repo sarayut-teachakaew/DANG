@@ -7,6 +7,7 @@ import android.graphics.Point;
 
 import com.adventurer.dang.Boukenshas.Boukensha;
 import com.adventurer.dang.Boukenshas.Player;
+import com.adventurer.dang.Tiles.Tile;
 import com.adventurer.dang.Tiles.TileManager;
 import com.adventurer.dang.Tiles.TileObject;
 
@@ -20,7 +21,7 @@ public class Bullet implements TileObject {
     private TileManager manager;
     public int type=2,size,power;
     public Point pos,firePos,speed;
-    public Paint paint;
+    public Paint paint;TileObject notThis;
 
     public Bullet(Point pos, Point speed, int size, int power, int type, TileManager manager){
         this.pos=pos;this.speed=speed;this.size=size;firePos=new Point (pos);
@@ -40,20 +41,25 @@ public class Bullet implements TileObject {
     public Bullet(Point pos, float rot,float spd, int size, int power, int type, TileManager manager){
         this(pos,new Point((int)(spd*Math.cos(Math.toRadians(rot))),(int)(spd*Math.sin(Math.toRadians(rot)))),size,power,type,manager);
     }
+    public Bullet(Point pos, float rot,float spd, int size, int power, int type, TileManager manager,TileObject notThis){
+        this(pos,new Point((int)(spd*Math.cos(Math.toRadians(rot))),(int)(spd*Math.sin(Math.toRadians(rot)))),size,power,type,manager);
+        this.notThis=notThis;
+    }
     public void update(){
         pos.x+=speed.x*Constants.SCREEN_SCALE;
         pos.y+=speed.y*Constants.SCREEN_SCALE;
 
         if(pos.x<0||pos.x>manager.getWidth()||pos.y<0||pos.y>manager.getHeight())manager.delBullet(this);
-        else if(!manager.walkCheck(pos))manager.delBullet(this);
 
-        Boukensha Bou = manager.hitCheck(pos.x,pos.y);
-        if(Bou !=null){
-            if(type==DAMAGE_ALL||(Bou.isFriendly()&&type==DAMAGE_FRIENDLY)||(!Bou.isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET))){
-                Bou.pushHp(-power);
+        TileObject TO = manager.visionCheck(pos.x,pos.y,notThis);
+        if(TO !=null &&TO instanceof Boukensha){
+            if(type==DAMAGE_ALL||(((Boukensha)TO).isFriendly()&&type==DAMAGE_FRIENDLY)||(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET))){
+                TO.pushHp(-power);
                 manager.delBullet(this);
-                if(!Bou.isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET)){
-                    Bou.getAttention(firePos);
+                if (TO instanceof Tile) {
+                    if(!(((Tile) TO).isWalkable())&&TO!=notThis)manager.delBullet(this);
+                }else if(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET)){
+                    ((Boukensha)TO).getAttention(firePos);
                 }
             }
         }

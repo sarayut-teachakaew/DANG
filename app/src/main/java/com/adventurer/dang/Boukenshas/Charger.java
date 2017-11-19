@@ -29,7 +29,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     private Point targetP;
     private Boolean FRU;
     private int maxPrrt=0;
-    private int cC=0;
+    private int cC=0,swC=0,swCM=30;
     private int vision=90,visDist=(int)(Constants.SCREEN_SCALE*1000);
     private boolean onCharge=false,meetYet=false;
     private double holdSec=0,timeStart=Constants.INIT_TIME;
@@ -54,25 +54,22 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     }
 
     public void survey(Canvas canvas){
-        try{
+        if(swC<swCM)return;
         TileObject tarO=manager.player;
-        boolean CT=false;int con=0;
+        boolean CT=false;
         for(int rad=(int)aimRot-vision/2;rad<=aimRot+vision/2;rad+=10) {
-            if(con>4)break;
             for (float dist = -1; dist < visDist;dist += (dist<Player.WIDTH/10)? 1:Player.WIDTH/2-1) {
                 Paint pn = new Paint();
                 pn.setColor(Color.RED);
                 Point pp = new Point((int) (x + Math.cos(Math.toRadians(rad)) * dist), (int) (y + Math.sin(Math.toRadians(rad)) * dist));
                 canvas.drawRect(new Rect(pp.x - 5 + Constants.DRAG_DIST.x, pp.y - 5 + Constants.DRAG_DIST.y
                         , pp.x + 5 + Constants.DRAG_DIST.x, pp.y + 5 + Constants.DRAG_DIST.y), pn);
+
                 TileObject TO = manager.visionCheck(x + (float) Math.cos(Math.toRadians(rad)) * dist, y + (float) Math.sin(Math.toRadians(rad)) * dist, this);
                 if (TO == null) continue;
                 else if (TO instanceof Tile) {
                     if (((Tile) TO).isWalkable()) continue;
-                    else {
-                        if(dist<Player.WIDTH/10)con++;
-                        break;
-                    }
+                    else break;
                 } else if (TO instanceof Boukensha) {
                     if (TO == manager.player) {
                         if (maxPrrt < PLAYER_PRRT) {
@@ -97,6 +94,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
                         maxPrrt = MONNEY_TOWER_PRRT;
                         CT = true;
                     } else if (TO instanceof WallTower && maxPrrt < WALL_TOWER_PRRT) {
+                        //System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                         tarO = TO;
                         maxPrrt = WALL_TOWER_PRRT;
                         CT = true;
@@ -107,13 +105,13 @@ public class Charger extends SimpleBoukensha implements Boukensha {
 
             }
         }
-        if(maxPrrt >0&& con<4){
+        if(maxPrrt >0){
             meetYet=true;
             setTP(new Point(tarO.getPos()));
-            if(CT&&!onCharge&&Math.random()>0.96){
+            if(CT&&!onCharge&&Math.abs(targetRot()-aimRot)<10){
                 charge();
             }
-        }}catch (Exception e){newTP();};
+        }swC=0;
     }
     public void setTP(Point np){
         targetP = new Point(np);
@@ -153,15 +151,15 @@ public class Charger extends SimpleBoukensha implements Boukensha {
 
     @Override
     public void update() {
-        if(hp>maxHp)hp=maxHp;
-        if(hp<=0) die();
+
+        swC++;
 
         float dis=(float) Math.sqrt((manager.player.getX()-x)*(manager.player.getX()-x)+(manager.player.getY()-y)*(manager.player.getY()-y));
         if(timeStart<Constants.INIT_TIME)timeStart=Constants.INIT_TIME;
         holdSec-=(System.currentTimeMillis()-timeStart)/1000;
         timeStart=System.currentTimeMillis();
         if(holdSec>0)return;
-
+        if(action==ON_IDLE)action=ON_AIM;
         super.update();
 
         if(Math.abs(ax)+Math.abs(ay)<4&&onCharge)onCharge=false;
@@ -176,7 +174,6 @@ public class Charger extends SimpleBoukensha implements Boukensha {
             if(tower!=null){
                 tower.pushHp(-power*3);
                 balloon.pop("ปึง",Color.rgb(0,0,0));
-                ax/=2;ay/=2;
             }
         }
 
@@ -196,7 +193,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
                     else{
                         while (targetRot()>aimRot)aimRot+=360;
                         aimRot-=(aimRot-targetRot())/4;
-                    }
+                    }swC+=5;
                 }else {
                      aimRot=targetRot();
                  }
@@ -209,21 +206,30 @@ public class Charger extends SimpleBoukensha implements Boukensha {
             }else {
                 newTP();
             }
-
+            /*if(Math.abs(ax)+Math.abs(ay)>0.00001&&moveStuck!=0){
+                System.out.println("=======================0==="+moveStuck);
+            }*/
             if(!manager.isClose(x,y)|| targetP==null)return;
             double d = Math.sqrt((manager.player.getX()-targetP.x)*(manager.player.getX()-targetP.x)
                     +(manager.player.getY()-targetP.y)*(manager.player.getY()-targetP.y));
             if(d<Constants.SCREEN_SCALE*50){
                 cC++;
-                if(dis<Constants.SCREEN_SCALE*300)cC+=3;
+                if(dis<Constants.SCREEN_SCALE*400)cC+=3;
             }
             else if(cC>0)cC--;
             if(cC>40&&Math.random()>0.82){
                 charge();
             }
         }
+        if(onCharge&&moveStuck>1){
+            holdSec =chargeSec/2;
+            onCharge=false;
+            action=ON_IDLE;
+            moveStuck=0;
+        }
     }
     public void charge(){
+        moveStuck=0;
         holdSec =chargeSec;
         float force = 80;
         pushForce((float) (Constants.SCREEN_SCALE*force*Math.cos(Math.toRadians(aimRot)))

@@ -26,7 +26,7 @@ public class Card extends TextureButton {
             MONEY_TOWER,SHOOT_TOWER,SPARK_TOWER,WALL_TOWER,WALL_TOWER,WALL_TOWER
     };
 
-    private int type=0;
+    private int type=1;
 
     public Card(int i){
         super(new Point(0,0),Constants.CARD_WIDTH,Constants.CARD_HEIGHT,texture[(texture.length>i&&i>=0)? i:0]);
@@ -45,24 +45,36 @@ public class Card extends TextureButton {
         if(PWR>=100)PWR=100;
         if(SPD>=100)SPD=100;
         if(LUCK>=100)LUCK=100;*/
-        int distLine=Constants.CARD_HEIGHT/12;
+    }
+    public Card(){
+        this(cardChance[(int)(Math.random()*cardChance.length)%cardChance.length]);
+    }
+    public Card(int type,int rare,int def,int pwr,int spd,int luck){
+        super(new Point(0,0),Constants.CARD_WIDTH,Constants.CARD_HEIGHT,texture[(texture.length>type&&type>=0)? type:0]);
+        type = (texture.length>type&&type>=0)? type:0;
+        panPic = false;
+
+        this.rare=rare;DEF = def;PWR = pwr;SPD = spd;LUCK=luck;
+
+    }
+
+    public String textCard(){
+        return ""+type+" "+rare+" "+DEF+" "+PWR+" "+SPD+" "+LUCK;
+    }
+    public int getType(){return type;}
+
+    @Override
+    public void draw(Canvas canvas) {
         balloon = new Balloon();
         balloon.setPos(posX,posY);
-        balloon.size=Constants.CARD_HEIGHT/11;
+        balloon.size=height/11;
+        int distLine=height/12;
         balloon.addMoveText("Rarity -> "+rare,distLine);
         balloon.addMoveText("Defend -> "+DEF,distLine*2);
         balloon.addMoveText("Power -> "+PWR,distLine*3);
         balloon.addMoveText("Speed -> "+SPD,distLine*4);
         balloon.addMoveText("Luck ->"+LUCK,distLine*5);
 
-    }
-    public Card(){
-        this(cardChance[(int)(Math.random()*cardChance.length)%cardChance.length]);
-    }
-    public int getType(){return type;}
-
-    @Override
-    public void draw(Canvas canvas) {
         super.draw(canvas);
         balloon.setPos(posX,posY);
         balloon.draw(canvas);
@@ -82,4 +94,5 @@ public class Card extends TextureButton {
     public int getLUCK(){
         return LUCK;
     }
+
 }

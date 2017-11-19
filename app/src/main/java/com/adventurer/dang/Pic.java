@@ -14,7 +14,7 @@ public class Pic {
             ,cb_build,cb_buy,cb_cancel,cb_sell,cb_upgrade,cb_warp,controller_button,controller_fire
             ,controller_fire_unactive,controller_move,controller_move_unactive,monster_bommer
             ,monster_charger,monster_gunner,player,spawn_tile,tcard_money,tcard_shoot,tcard_spark
-            ,tcard_wall,tower_money,tower_shoot,tower_spark,tower_wall,normal_tile,unseen_tile;
+            ,tcard_wall,tower_money,tower_shoot,tower_spark,tower_wall,normal_tile,unseen_tile,coin_pic;
 
     public Pic(int scene){
         BitmapFactory bf = new BitmapFactory();
@@ -53,6 +53,8 @@ public class Pic {
         tcard_shoot=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tcard_shoot);
         tcard_spark=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tcard_spark);
         tcard_wall=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tcard_wall);
+
+        coin_pic=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.coin_pic);
     }
 
 }
