@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
-        Constants.SCREEN_SCALE = Constants.SCREEN_WIDTH/1400;
+        Constants.SCREEN_SCALE = Constants.SCREEN_WIDTH/1400.0f;
         Constants.TILE_SIZE=2*Constants.SCREEN_WIDTH/18;
         Constants.CB_SIZE=1*Constants.SCREEN_WIDTH/14;
         Constants.TOWER_WIDTH=2*Constants.SCREEN_WIDTH/18;

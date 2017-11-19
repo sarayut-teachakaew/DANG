@@ -30,7 +30,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     private Boolean FRU;
     private int maxPrrt=0;
     private int cC=0;
-    private int vision=90,visDist=Constants.SCREEN_SCALE*1000;
+    private int vision=90,visDist=(int)(Constants.SCREEN_SCALE*1000);
     private boolean onCharge=false,meetYet=false;
     private double holdSec=0,timeStart=Constants.INIT_TIME;
     private float chargeSec = 0.7f;
@@ -48,7 +48,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
         moveSPD=Constants.SCREEN_SCALE*10;
         hp=maxHp = 50;
         power=1;
-        chargeBar = new MidBar(x,y-STEP_UP,Constants.SCREEN_SCALE*100,Constants.SCREEN_SCALE*30, Color.rgb(255,105,180));
+        chargeBar = new MidBar(x,y-STEP_UP,(int)(Constants.SCREEN_SCALE*100),(int)(Constants.SCREEN_SCALE*30), Color.rgb(255,105,180));
 
         newTP();
     }
@@ -139,8 +139,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     }
     @Override
     public void draw(Canvas canvas) {
-        float dis=(float) Math.sqrt((manager.player.getX()-x)*(manager.player.getX()-x)+(manager.player.getY()-y)*(manager.player.getY()-y));
-        if(dis>Constants.VISIBLR_RANGE*2.5)return;
+        if(!manager.isClose(x,y))return;
 
         super.draw(canvas);
         canvas.drawRect(new Rect(targetP.x-20+Constants.DRAG_DIST.x,targetP.y-20+Constants.DRAG_DIST.y
@@ -211,7 +210,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
                 newTP();
             }
 
-            if(dis>Constants.VISIBLR_RANGE*2.5 || targetP==null)return;
+            if(!manager.isClose(x,y)|| targetP==null)return;
             double d = Math.sqrt((manager.player.getX()-targetP.x)*(manager.player.getX()-targetP.x)
                     +(manager.player.getY()-targetP.y)*(manager.player.getY()-targetP.y));
             if(d<Constants.SCREEN_SCALE*50){

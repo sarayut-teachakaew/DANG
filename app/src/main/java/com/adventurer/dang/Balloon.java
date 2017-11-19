@@ -17,12 +17,12 @@ public class Balloon {
     private ArrayList<Text> movetexts = new ArrayList<>();
     private ArrayList<Text> addMT = new ArrayList<>();
     public Point pos =new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2)
-            ,dist = new Point(0,Constants.SCREEN_SCALE*-100);
+            ,dist = new Point(0,(int)(Constants.SCREEN_SCALE*-100));
     public int color = Color.BLACK, size = 50;
     public int upSpeak = -40;
     public float timePop=1,timeSpeak=3;
     public Boolean popRotate = true;
-    public Point ranPop = new Point(Constants.SCREEN_SCALE*100,Constants.SCREEN_SCALE*30);
+    public Point ranPop = new Point((int)(Constants.SCREEN_SCALE*100),(int)(Constants.SCREEN_SCALE*30));
 
     public void pop(String txt){
         if (popRotate){

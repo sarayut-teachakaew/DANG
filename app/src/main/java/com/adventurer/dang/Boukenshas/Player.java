@@ -31,9 +31,9 @@ public class Player extends SimpleBoukensha implements Boukensha {
         textureAimor1 = GameScene.pic.aimor1_high;
 
         int barWidth=Controller.SIZE,barHeight=Controller.SIZE/24;
-        barCD=new MidBar(Constants.SCREEN_WIDTH-Controller.SIZE/2,Constants.SCREEN_HEIGHT-Controller.SIZE-barHeight
+        barCD=new MidBar(Constants.SCREEN_WIDTH-Controller.SIZE*2/3,Constants.SCREEN_HEIGHT-Controller.SIZE*7/6-barHeight
                 , barWidth,barHeight,(float) fireCD,(float) secPerFire, Color.rgb(176,224,230));
-        barShake=new MidBar(Constants.SCREEN_WIDTH-Controller.SIZE/2,Constants.SCREEN_HEIGHT-Controller.SIZE-barHeight-barHeight*2
+        barShake=new MidBar(Constants.SCREEN_WIDTH-Controller.SIZE*2/3,Constants.SCREEN_HEIGHT-Controller.SIZE*7/6-barHeight-barHeight*2
                 , barWidth,barHeight,(float) shake,(float) maxShake, Color.rgb(233,150,122));
 
         bulletSpd = Constants.SCREEN_SCALE*60;

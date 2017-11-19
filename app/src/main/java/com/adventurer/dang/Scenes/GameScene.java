@@ -66,7 +66,7 @@ public class GameScene implements Scene {
         ctrMove.draw(canvas);
         ctrFire.draw(canvas);
 
-        Text moneyTxt = new Text(new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*80)
+        Text moneyTxt = new Text(new Point((int)(Constants.SCREEN_WIDTH/2),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*80))
         ,(int)MONEY+" G",Color.rgb(255,215,0),Constants.SCREEN_SCALE*100);
         moneyTxt.draw(canvas);
     }

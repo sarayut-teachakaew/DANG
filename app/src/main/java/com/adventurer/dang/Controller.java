@@ -31,10 +31,10 @@ public class Controller {
             texture1 = GameScene.pic.controller_move;
             butt = GameScene.pic.controller_button;
 
-            posX = SIZE / 2;
-            posY = Constants.SCREEN_HEIGHT - SIZE / 2;
-            posBX = SIZE / 2;
-            posBY = Constants.SCREEN_HEIGHT - SIZE / 2;
+            posX = SIZE*2/3;
+            posY = Constants.SCREEN_HEIGHT - SIZE*2/3;
+            posBX = SIZE*2/3;
+            posBY = Constants.SCREEN_HEIGHT - SIZE*2/3;
             rect = new Rect(posX - SIZE / 2, posY - SIZE / 2, posX + SIZE / 2, posY + SIZE / 2);
             rectB = new Rect(posBX - BUTTON_SIZE / 2, posBY - BUTTON_SIZE / 2, posBX + BUTTON_SIZE / 2, posBY + BUTTON_SIZE / 2);
         }
@@ -43,10 +43,10 @@ public class Controller {
             texture1 = GameScene.pic.controller_fire;
             butt = GameScene.pic.controller_button;
 
-            posX = Constants.SCREEN_WIDTH - SIZE / 2;
-            posY = Constants.SCREEN_HEIGHT - SIZE / 2;
-            posBX = Constants.SCREEN_WIDTH - SIZE / 2;
-            posBY = Constants.SCREEN_HEIGHT - SIZE / 2;
+            posX = Constants.SCREEN_WIDTH - SIZE*2/3;
+            posY = Constants.SCREEN_HEIGHT - SIZE*2/3;
+            posBX = Constants.SCREEN_WIDTH - SIZE*2/3;
+            posBY = Constants.SCREEN_HEIGHT - SIZE*2/3;
             rect = new Rect(posX - SIZE / 2, posY - SIZE / 2, posX + SIZE / 2, posY + SIZE / 2);
             rectB = new Rect(posBX - BUTTON_SIZE / 2, posBY - BUTTON_SIZE / 2, posBX + BUTTON_SIZE / 2, posBY + BUTTON_SIZE / 2);
         }

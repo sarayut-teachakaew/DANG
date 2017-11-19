@@ -74,6 +74,14 @@ public class TileManager {
             for(int j=(posX-r<0)? 0:posX-r;j<=((posX+r>=x)? x-1:posX+r);j++)if(table[i][j].isWalkable())ans.add(table[i][j]);
         return ans;
     }
+    public boolean isClose(float x,float y){
+        float dis=(float) Math.sqrt((player.getX()-x)*(player.getX()-x)+(player.getY()-y)*(player.getY()-y));
+        return dis< Constants.VISIBLR_RANGE + Constants.SCREEN_SCALE*1000;
+    }
+    public boolean isClose(Point pos){
+        float dis=(float) Math.sqrt((player.getX()-pos.x)*(player.getX()-pos.x)+(player.getY()-pos.y)*(player.getY()-pos.y));
+        return dis< Constants.VISIBLR_RANGE + Constants.SCREEN_SCALE*1000;
+    }
     public boolean walkCheck(float wx,float wy){
         if (wx<0||(int)(wx/Constants.TILE_SIZE)>=x)return false;
         else if (wy<0||(int)(wy/Constants.TILE_SIZE)>=y)return false;

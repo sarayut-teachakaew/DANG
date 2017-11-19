@@ -93,8 +93,8 @@ public class NormalTile extends TextureButton implements Tile {
     }
     @Override
     public void update() {
-        if(((getX()-tileMan.player.getX())*(getX()-tileMan.player.getX())+(getY()-tileMan.player.getY())*(getY()-tileMan.player.getY()))
-                >(Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)*(Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)){
+        if(((getX()-tileMan.player.getX())*(getX()-tileMan.player.getX())+(getY()-tileMan.player.getY())*(getY()-tileMan.player.getY()))>
+                (Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)*(Constants.SCREEN_SCALE*Constants.VISIBLR_RANGE)){
             seen=false;
             close();
             if(Backpack.getSTile()==this)Backpack.close();

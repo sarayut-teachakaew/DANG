@@ -40,6 +40,7 @@ public class MenuScene implements Scene {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 ball.setPos(event.getX(),event.getY());
+                System.out.println(Constants.VISIBLR_RANGE);
                 ball.pop("POP");
                 //ball.addText("ไม่อยากกินต้มไก่");
                 break;

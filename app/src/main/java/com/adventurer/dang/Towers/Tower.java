@@ -49,10 +49,10 @@ public class Tower extends TextureButton implements TileObject {
 
         timeStart=System.currentTimeMillis();
 
-        barHp=new FullBar(tile.getX(),tile.getY()+Constants.TILE_SIZE/2,(int)(Constants.TILE_SIZE/1.5),Constants.SCREEN_SCALE*15, Color.rgb(255,99,71));
-        barUp=new MidBar(tile.getX(),tile.getY(),(int)(Constants.TILE_SIZE/1.8),Constants.SCREEN_SCALE*20, Color.rgb(100,149,237));
+        barHp=new FullBar(tile.getX(),tile.getY()+Constants.TILE_SIZE/2,(int)(Constants.TILE_SIZE/1.5),(int)(Constants.SCREEN_SCALE*15), Color.rgb(255,99,71));
+        barUp=new MidBar(tile.getX(),tile.getY(),(int)(Constants.TILE_SIZE/1.8),(int)(Constants.SCREEN_SCALE*20), Color.rgb(100,149,237));
         balloon = new Balloon();
-        balloon.size=Constants.SCREEN_SCALE*40;
+        balloon.size=(int)(Constants.SCREEN_SCALE*40);
         hp = maxHp = 300;
         DEF=card.getDEF();PWR=card.getPWR();SPD=card.getSPD();LUCK=card.getLUCK();
         setStat();
