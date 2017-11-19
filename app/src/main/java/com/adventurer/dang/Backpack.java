@@ -32,6 +32,8 @@ public class Backpack {
     public static void openBuild(Tile tile){
         if(getWidth() / 2 < Constants.SCREEN_WIDTH / 3)dragX = 0;
         for(int i=0;i<cards.size();i++){
+            cards.get(i).width=Constants.CARD_WIDTH;
+            cards.get(i).height=Constants.CARD_HEIGHT;
             cards.get(i).setStartPos(((i-((float)cards.size()-1)/2)* Constants.CARD_WIDTH)+Constants.SCREEN_WIDTH/2,-Constants.CARD_HEIGHT/2);
             cards.get(i).setDestPos(((i-((float)cards.size()-1)/2)* Constants.CARD_WIDTH)+Constants.SCREEN_WIDTH/2,Constants.CARD_HEIGHT/2);
         }

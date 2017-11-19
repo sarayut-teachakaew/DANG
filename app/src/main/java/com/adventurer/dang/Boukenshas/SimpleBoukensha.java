@@ -88,40 +88,66 @@ public class SimpleBoukensha implements Boukensha{
 
     @Override
     public void move(float mx, float my) {
-        mx*=Constants.SCREEN_SCALE;
-        my*=Constants.SCREEN_SCALE;
-        int saveMS = moveStuck;
-        while (!manager.walkCheck(x+mx,y)){
-            if(mx<0){mx++;if(mx>0)mx=0;}
-            else{mx--;if(mx<0)mx=0;}
-            moveStuck++;
-        }
-        while (!manager.walkCheck(x,y+my)){
-            if(my<0){my++;if(my>0)my=0;}
-            else{my--;if(my<0)my=0;}
-            moveStuck++;
-        }
+        try {
+            mx *= Constants.SCREEN_SCALE;
+            my *= Constants.SCREEN_SCALE;
+            int saveMS = moveStuck;
+            int count=0;
+            int px=x,py=y;
+            while (!manager.walkCheck(x + mx, y)) {
+                count++;
+                if (mx < 0) {
+                    mx++;
+                    if (mx > 0) mx = 0;
+                } else {
+                    mx--;
+                    if (mx < 0) mx = 0;
+                }
+                moveStuck++;
+                if(count>Constants.SCREEN_WIDTH){
+                    mx=0;
+                    break;
+                }
+            }count=0;
+            while (!manager.walkCheck(x, y + my)) {
+                count++;
+                if (my < 0) {
+                    my++;
+                    if (my > 0) my = 0;
+                } else {
+                    my--;
+                    if (my < 0) my = 0;
+                }
+                moveStuck++;
+                if(count>Constants.SCREEN_WIDTH){
+                    my=0;
+                    break;
+                }
+            }
 
-        x+=mx;y+=my;
+            x = px+(int)mx;
+            y = py+(int)my;
 
-        if(x<0){
-            x=0;
-            moveStuck++;
-        }
-        if(x>manager.getWidth()){
-            x=manager.getWidth();
-            moveStuck++;
-        }
-        if(y<0){
-            y=0;
-            moveStuck++;
-        }
-        if(y>manager.getHeight()){
-            y=manager.getHeight();
-            moveStuck++;
-        }
+            if (x < 0) {
+                x = 0;
+                moveStuck++;
+            }
+            if (x > manager.getWidth()) {
+                x = manager.getWidth();
+                moveStuck++;
+            }
+            if (y < 0) {
+                y = 0;
+                moveStuck++;
+            }
+            if (y > manager.getHeight()) {
+                y = manager.getHeight();
+                moveStuck++;
+            }
 
-        if(saveMS==moveStuck)if(Math.random()>0.8)moveStuck=0;
+            if (saveMS == moveStuck) if (Math.random() > 0.8) moveStuck = 0;
+
+        }catch (Exception e){};
     }
     public void moveRot(float rot, float spd){
         move((float) (spd*Math.cos(Math.toRadians(rot))),(float)(spd*Math.sin(Math.toRadians(rot))));
@@ -177,5 +203,8 @@ public class SimpleBoukensha implements Boukensha{
     }
     public float getHp(){
         return hp;
+    }
+    public void getAttention(Point ap){
+
     }
 }

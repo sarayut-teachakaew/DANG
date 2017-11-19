@@ -40,6 +40,8 @@ public class Text {
         paint = new Paint();
         paint.setColor(textColor);
         paint.setTextSize(textSize);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(4);
         timeStart = System.currentTimeMillis();
     }
     public Text(Point curPos,Point destPos, String txt, int textColor, int textSize,int distY){

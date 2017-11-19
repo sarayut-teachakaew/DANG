@@ -23,7 +23,7 @@ public class Card extends TextureButton {
             ,SceneManager.pic.tcard_spark};
 
     private static int[] cardChance=new int[]{
-            MONEY_TOWER,WALL_TOWER,SHOOT_TOWER,SPARK_TOWER
+            MONEY_TOWER,SHOOT_TOWER,SPARK_TOWER,WALL_TOWER,WALL_TOWER,WALL_TOWER
     };
 
     private int type=0;

@@ -21,6 +21,7 @@ public interface Boukensha extends TileObject {
     void die();
     void capScreen();
     void followScreen();
+    void getAttention(Point ap);
     Point getPos();
     int getX();
     int getY();

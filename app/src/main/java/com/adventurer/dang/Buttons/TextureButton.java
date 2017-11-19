@@ -17,7 +17,7 @@ public class TextureButton implements MyButton{
     protected Point destPos;
     protected float posX,posY;
     protected Rect rect;
-    protected int width,height;
+    public int width,height;
     protected boolean panPic = true;
     public TextureButton(Point destPos,int width,int height,Bitmap texture,Point startPos){
         posX = startPos.x;posY = startPos.y;

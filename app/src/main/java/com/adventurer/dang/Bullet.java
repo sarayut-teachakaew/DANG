@@ -19,11 +19,11 @@ public class Bullet implements TileObject {
 
     private TileManager manager;
     public int type=2,size,power;
-    public Point pos,speed;
+    public Point pos,firePos,speed;
     public Paint paint;
 
     public Bullet(Point pos, Point speed, int size, int power, int type, TileManager manager){
-        this.pos=pos;this.speed=speed;this.size=size;
+        this.pos=pos;this.speed=speed;this.size=size;firePos=new Point (pos);
         this.type=type;this.power=power;this.manager=manager;
         paint=new Paint();
 
@@ -52,6 +52,9 @@ public class Bullet implements TileObject {
             if(type==DAMAGE_ALL||(Bou.isFriendly()&&type==DAMAGE_FRIENDLY)||(!Bou.isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET))){
                 Bou.pushHp(-power);
                 manager.delBullet(this);
+                if(!Bou.isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET)){
+                    Bou.getAttention(firePos);
+                }
             }
         }
     }

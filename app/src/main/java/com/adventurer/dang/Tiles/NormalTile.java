@@ -122,6 +122,8 @@ public class NormalTile extends TextureButton implements Tile {
 
     @Override
     public void delTower() {
+        if(!ownsTower)return;
+        Backpack.addCard(tower.getCard());
         ownsTower = false;
         tower = null;
     }

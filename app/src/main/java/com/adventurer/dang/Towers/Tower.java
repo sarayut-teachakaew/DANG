@@ -29,7 +29,7 @@ public class Tower extends TextureButton implements TileObject {
     protected TextureButton CirBut[];
     protected boolean onOpen = false;
     protected Tile tile ;
-    protected Card card ;
+    public Card card ;
     protected float hp,maxHp;
     protected FullBar barHp;
     protected Balloon balloon,dataB;
@@ -44,6 +44,7 @@ public class Tower extends TextureButton implements TileObject {
     protected Tower(Tile tile,Bitmap bitmap,Card card){
         super(new Point(tile.getX(),tile.getY()-(Constants.TOWER_HEIGHT-Constants.TILE_SIZE)/2), Constants.TOWER_WIDTH,Constants.TOWER_HEIGHT,bitmap);
         this.tile=tile;
+        this.card=card;
         manager = tile.getTileMan();
 
         timeStart=System.currentTimeMillis();
@@ -157,7 +158,6 @@ public class Tower extends TextureButton implements TileObject {
     }
 
     public void die(){
-        Backpack.addCard(card);
         tile.delTower();
     }
     public void open(){
@@ -174,5 +174,8 @@ public class Tower extends TextureButton implements TileObject {
         if(value<0)balloon.pop(""+(int)-value, Color.rgb(255,99,71));
         if(value>0)balloon.pop(""+(int)value,Color.rgb(173,255,47));
         hp+=value;
+    }
+    public Card getCard(){
+        return card;
     }
 }

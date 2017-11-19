@@ -6,6 +6,7 @@ import android.graphics.Point;
 
 import com.adventurer.dang.Balloon;
 import com.adventurer.dang.Boukenshas.Boukensha;
+import com.adventurer.dang.Boukenshas.Charger;
 import com.adventurer.dang.Boukenshas.Player;
 import com.adventurer.dang.Bullet;
 import com.adventurer.dang.Constants;
@@ -22,7 +23,7 @@ import java.util.Comparator;
 
 public class TileManager {
     private Tile table[][];
-    public int x,y;
+    public int x,y,spwT=0;
     private Tile curTile=null;
     public Player player;
     public ArrayList<Boukensha>bks =new ArrayList<>();
@@ -41,7 +42,7 @@ public class TileManager {
                     ,(int)((i-(float)(y-1)/2)*Constants.TILE_SIZE)+Constants.SCREEN_HEIGHT/2);*/
             Point p = new Point(Constants.TILE_SIZE/2+j*Constants.TILE_SIZE,Constants.TILE_SIZE/2+i*Constants.TILE_SIZE);
             if(i==0 || j==0 ||i==y-1||j==x-1){
-                table[i][j]=new SpawnTile(p,this);
+                table[i][j]=new SpawnTile(p,this);spwT++;
             }
             else if(j==x/2&&i==y/2){
                 table[i][j]=new NormalTile(p,this);
@@ -55,11 +56,16 @@ public class TileManager {
             else table[i][j]=new BoulderTile(p,this);
         }
 
+        //addBoukensha(new Charger(this,0,0));
+
         alert =new Balloon();
         alert.color = Color.rgb(255,127,80);
         alert.ranPop=(new Point(0,0));
         alert.popRotate=false;
         alert.size = Constants.SCREEN_HEIGHT/10;
+    }
+    public void delAllTower(){
+        for(int i=0;i<y;i++)for(int j=0;j<x;j++)table[i][j].delTower();
     }
     public ArrayList<Tile> rangeTile(float px,float py,int r){
         int posX=(int)(px/Constants.TILE_SIZE),posY=(int)(py/Constants.TILE_SIZE);
@@ -139,6 +145,7 @@ public class TileManager {
         for(int i=0;i<y;i++)for(int j=0;j<x;j++)table[i][j].update();
         for(Boukensha B:bks)B.update();
         for(Bullet B:bullets)B.update();
+        //bks.get(1 ).capScreen();
         //System.out.println("/"+bks.size());
     }
 

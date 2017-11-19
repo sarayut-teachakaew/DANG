@@ -17,6 +17,9 @@ import com.adventurer.dang.Towers.AllTower;
 
 public class SpawnTile extends TextureButton implements Tile  {
     private TileManager tileMan;
+    private double holdSec=0,ts=Constants.INIT_TIME;
+    private float delaySec=3;
+    private float wait=10;
 
     public SpawnTile(Point position, TileManager TM){
         super(position, Constants.TILE_SIZE,Constants.TILE_SIZE
@@ -46,7 +49,13 @@ public class SpawnTile extends TextureButton implements Tile  {
     }
     @Override
     public void update() {
-        if(Math.random()<0.0001)tileMan.addBoukensha(new Charger(tileMan,getX(),getY()));
+        if(holdSec<=0){
+            if(Math.random()<1.0/tileMan.spwT)tileMan.addBoukensha(new Charger(tileMan,getX(),getY()));
+            holdSec=delaySec;
+        }
+        if(ts<Constants.INIT_TIME)ts=Constants.INIT_TIME;
+        holdSec-=(System.currentTimeMillis()-ts)/1000;
+        ts=System.currentTimeMillis();
     }
 
     public void open(){

@@ -48,6 +48,8 @@ public class GameScene implements Scene {
         tileMan = new TileManager(50,50);
         tileMan.player.capScreen();
 
+        MONEY=1000;
+
     }
     public void update(){
         if(tileMan.player.getHp()<=0){
@@ -69,6 +71,7 @@ public class GameScene implements Scene {
         moneyTxt.draw(canvas);
     }
     public void terminate(){
+        tileMan.delAllTower();
         manager.freeGame();
     }
     public void recieveTouch(MotionEvent event){
@@ -80,13 +83,14 @@ public class GameScene implements Scene {
                 ctrFire.close(tileMan.player);CFIndex=-1;
             }
         }
-        if(ctrMove.isActive()&&ctrFire.isActive()&&event.getActionMasked()==MotionEvent.ACTION_MOVE){
+        if(ctrMove.isActive()&&ctrFire.isActive()&&event.getAction()==MotionEvent.ACTION_MOVE){
             int pointerCount = event.getPointerCount();
             for(int i = 0; i < pointerCount; ++i)
             {
                 int pointerIndex = i;
                 int pointerId = event.getPointerId(pointerIndex);
                 //Log.d("pointer id - move",Integer.toString(pointerId));
+                try{
                 if(CMIndex==pointerId){
                     ctrMove.open();
                     ctrMove.setPosB(event.getX(CMIndex),event.getY(CMIndex));
@@ -94,6 +98,8 @@ public class GameScene implements Scene {
                 if(CFIndex==pointerId){
                     ctrFire.open();
                     ctrFire.setPosB(event.getX(CFIndex),event.getY(CFIndex));
+                }}catch (Exception e){
+                    System.out.println("Error");
                 }
             }
         }
