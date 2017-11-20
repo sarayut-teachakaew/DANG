@@ -23,8 +23,8 @@ import static com.adventurer.dang.Backpack.score;
 
 public class MenuScene implements Scene {
     private SceneManager manager;
-    private RectButton playButton;
-    TextureButton coinBut;
+    private RectButton playButton,resetButton;
+    TextureButton coinBut, logo;
     Card newCard=null;Boolean openCard=false;
     Balloon ball;
 
@@ -36,12 +36,21 @@ public class MenuScene implements Scene {
     }
     public void setButton(){
         playButton = new RectButton(Constants.SCREEN_SCALE*300,Constants.SCREEN_SCALE*200
-                ,new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2)
+                ,new Point(Constants.SCREEN_WIDTH/2,(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*300))
                 ,Color.rgb(176,196,222),"PLAY",Color.rgb(240,255,255));
+
+        resetButton = new RectButton(Constants.SCREEN_SCALE*300,Constants.SCREEN_SCALE*200
+                ,new Point((int)(Constants.SCREEN_WIDTH-Constants.SCREEN_SCALE*1500),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*300))
+                ,Color.rgb(176,196,222),"RESET",Color.rgb(240,255,255));
+
 
         int cWi=(int)(Constants.SCREEN_SCALE*300),cHi=(int)(Constants.SCREEN_SCALE*300);
         coinBut = new TextureButton(new Point(Constants.SCREEN_WIDTH-cWi,Constants.SCREEN_HEIGHT-cHi),cWi,cHi,SceneManager.pic.coin_pic);
         coinBut.panPic=false;
+
+        int lWi=(int)(Constants.SCREEN_SCALE*1200),lHi=(int)(Constants.SCREEN_SCALE*840);
+        logo = new TextureButton(new Point(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/3),lWi,lHi,SceneManager.pic.logo);
+        logo.panPic=false;
     }
     public void update(){
         if(!openCard&&newCard!=null&& newCard.isDest()){
@@ -51,9 +60,11 @@ public class MenuScene implements Scene {
     public void draw(Canvas canvas){
         canvas.drawColor(Color.rgb(245,255,250));
 
+        resetButton.draw(canvas);
         playButton.draw(canvas);
         coinBut.draw(canvas);
 
+        logo.draw(canvas);
         if(newCard!=null)newCard.draw(canvas);
 
         ball.draw(canvas);
@@ -77,11 +88,12 @@ public class MenuScene implements Scene {
             case MotionEvent.ACTION_DOWN:
                 ball.setPos(event.getX(),event.getY());
                 if(coinBut.hitCheck(new Point((int)event.getX(),(int)event.getY())))ball.pop("โฮ่ง");
+                else if(coinBut.hitCheck(new Point((int)event.getX(),(int)event.getY())))ball.pop("เริ่มใหม่");
                 else ball.pop("POP");
                 //ball.addText("ไม่อยากกินต้มไก่");
                 break;
             case MotionEvent.ACTION_UP:
-
+                Boolean opg=openCard;
                 if(openCard&&newCard!=null){
                     newCard.setDestPos(Constants.SCREEN_WIDTH/4,-newCard.height);
                     openCard = false;
@@ -100,6 +112,12 @@ public class MenuScene implements Scene {
                     }
 
 
+
+                }
+                else if(!opg&&resetButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))){
+                    COIN = 5;
+                    Backpack.clearCard();
+                    Backpack.saveCoin();
 
                 }
                 else if(playButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))) {

@@ -72,7 +72,7 @@ public class GameScene implements Scene {
         tileMan.update();
     }
     public void draw(Canvas canvas){
-        canvas.drawColor(Color.rgb(250,240,230));
+        canvas.drawColor(Color.rgb(160,160,160));
         tileMan.draw(canvas);
         ctrMove.draw(canvas);
         ctrFire.draw(canvas);

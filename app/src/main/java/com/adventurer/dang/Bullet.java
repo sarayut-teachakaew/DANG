@@ -57,7 +57,12 @@ public class Bullet implements TileObject {
         if (TO instanceof Tile) {
             if(!(((Tile) TO).isWalkable())&&TO!=notThis)manager.delBullet(this);}
         else if (TO instanceof Tower) {
-            if(TO!=notThis)manager.delBullet(this);}
+            if(type == PLAYER_BULLET){
+                TO.pushHp(power/4);
+                manager.delBullet(this);
+            }
+            else if(TO!=notThis)manager.delBullet(this);
+        }
         else if(TO instanceof Boukensha) {
             if(type==DAMAGE_ALL||(((Boukensha)TO).isFriendly()&&type==DAMAGE_FRIENDLY)||(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET))){
                 TO.pushHp(-power);

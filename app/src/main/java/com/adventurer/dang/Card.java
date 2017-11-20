@@ -23,7 +23,7 @@ public class Card extends TextureButton {
             ,SceneManager.pic.tcard_spark};
 
     private static int[] cardChance=new int[]{
-            MONEY_TOWER,SHOOT_TOWER,SPARK_TOWER,WALL_TOWER,WALL_TOWER,WALL_TOWER
+            MONEY_TOWER,SHOOT_TOWER/*,SPARK_TOWER*/,WALL_TOWER,WALL_TOWER,WALL_TOWER
     };
 
     private int type=1;
@@ -51,7 +51,7 @@ public class Card extends TextureButton {
     }
     public Card(int type,int rare,int def,int pwr,int spd,int luck){
         super(new Point(0,0),Constants.CARD_WIDTH,Constants.CARD_HEIGHT,texture[(texture.length>type&&type>=0)? type:0]);
-        type = (texture.length>type&&type>=0)? type:0;
+        this.type = (texture.length>type&&type>=0)? type:0;
         panPic = false;
 
         this.rare=rare;DEF = def;PWR = pwr;SPD = spd;LUCK=luck;

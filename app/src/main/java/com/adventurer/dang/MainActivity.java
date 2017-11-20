@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
         Constants.CARD_HEIGHT=3*Constants.SCREEN_WIDTH/14;
         Controller.SIZE = 3*Constants.SCREEN_WIDTH/14;
         Controller.BUTTON_SIZE = 1*Constants.SCREEN_WIDTH/14;
-        SimpleBoukensha.WIDTH=2*Constants.SCREEN_WIDTH/24;
-        SimpleBoukensha.HEIGHT=3*Constants.SCREEN_WIDTH/24;
+        SimpleBoukensha.WIDTH=2*Constants.SCREEN_WIDTH/18;
+        SimpleBoukensha.HEIGHT=3*Constants.SCREEN_WIDTH/18;
         SimpleBoukensha.AIMOR_SIZE=2*Constants.SCREEN_WIDTH/24;
         SimpleBoukensha.STEP_UP=Constants.SCREEN_WIDTH/40;
         Bullet.SCALE_SIZE=Constants.SCREEN_WIDTH/140;

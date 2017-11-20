@@ -97,7 +97,7 @@ public class SimpleBoukensha implements Boukensha{
             int saveMS = moveStuck;
             int count=0;
             int px=x,py=y;
-            while (!manager.walkCheck(x + mx, y)) {
+            while (!manager.walkCheck(px + mx, py)) {
                 count++;
                 if (mx < 0) {
                     mx++;
@@ -113,7 +113,7 @@ public class SimpleBoukensha implements Boukensha{
                     break;
                 }
             }count=0;
-            while (!manager.walkCheck(x, y + my)) {
+            while (!manager.walkCheck(px, py + my)) {
                 count++;
                 if (my < 0) {
                     my++;

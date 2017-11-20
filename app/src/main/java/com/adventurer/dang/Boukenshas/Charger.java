@@ -40,7 +40,6 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     private double holdSec=0,timeStart=Constants.INIT_TIME;
     private float chargeSec = 0.7f;
     private MidBar chargeBar;
-    private Balloon balli;
 
     public Charger(TileManager manager, int x, int y ){
         super();
@@ -65,11 +64,11 @@ public class Charger extends SimpleBoukensha implements Boukensha {
         boolean CT=false;
         for(int rad=(int)aimRot-vision/2;rad<=aimRot+vision/2;rad+=10) {
             for (float dist = -1; dist < visDist;dist += (dist<Player.WIDTH/10)? 1:Player.WIDTH/2-1) {
-                Paint pn = new Paint();
+                /*Paint pn = new Paint();
                 pn.setColor(Color.RED);
                 Point pp = new Point((int) (x + Math.cos(Math.toRadians(rad)) * dist), (int) (y + Math.sin(Math.toRadians(rad)) * dist));
                 canvas.drawRect(new Rect(pp.x - 5 + Constants.DRAG_DIST.x, pp.y - 5 + Constants.DRAG_DIST.y
-                        , pp.x + 5 + Constants.DRAG_DIST.x, pp.y + 5 + Constants.DRAG_DIST.y), pn);
+                        , pp.x + 5 + Constants.DRAG_DIST.x, pp.y + 5 + Constants.DRAG_DIST.y), pn);*/
 
                 TileObject TO = manager.visionCheck(x + (float) Math.cos(Math.toRadians(rad)) * dist, y + (float) Math.sin(Math.toRadians(rad)) * dist, this);
                 if (TO == null) continue;
@@ -146,8 +145,8 @@ public class Charger extends SimpleBoukensha implements Boukensha {
         if(!manager.isClose(x,y))return;
 
         super.draw(canvas);
-        canvas.drawRect(new Rect(targetP.x-20+Constants.DRAG_DIST.x,targetP.y-20+Constants.DRAG_DIST.y
-                ,targetP.x+20+Constants.DRAG_DIST.x,targetP.y+20+Constants.DRAG_DIST.y),new Paint());
+        /*canvas.drawRect(new Rect(targetP.x-20+Constants.DRAG_DIST.x,targetP.y-20+Constants.DRAG_DIST.y
+                ,targetP.x+20+Constants.DRAG_DIST.x,targetP.y+20+Constants.DRAG_DIST.y),new Paint());*/
         if(onCharge){
             chargeBar.setPos(x+Constants.DRAG_DIST.x,y-STEP_UP+Constants.DRAG_DIST.y);
             chargeBar.draw(canvas,(float) holdSec,chargeSec);
@@ -178,7 +177,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
             AllTower tower = manager.towerCheck((float) (x+Constants.SCREEN_SCALE*20*Math.cos(Math.toRadians(aimRot)))
                     ,(float)(y+Constants.SCREEN_SCALE*20*Math.sin(Math.toRadians(aimRot))));
             if(tower!=null){
-                tower.pushHp(-power*3);
+                tower.pushHp(-power*20);
                 balloon.pop("ปึง",Color.rgb(0,0,0));
             }
         }
@@ -265,11 +264,11 @@ public class Charger extends SimpleBoukensha implements Boukensha {
 
         }
 
-//        if(Math.random()>0.9){
+        if(Math.random()>0.9){
             manager.alert.pop("Get Coin !!!",Color.rgb(0,0,0));
             Backpack.COIN++;
             Backpack.saveCoin();
-//        }
+        }
 
     }
 

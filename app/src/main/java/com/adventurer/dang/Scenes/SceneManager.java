@@ -18,11 +18,9 @@ public class SceneManager {
     private ArrayList<Scene> scenes = new ArrayList<>();
     public static int MENU_SCENE=0,GAME_SCENE=1;
     public int activeScene;
-    public static Pic pic;
+    public static Pic pic = new Pic(-1);;
 
     public SceneManager(){
-        pic = new Pic(-1);
-
         Backpack.loadCard();
         Backpack.loadCoin();
         Backpack.loadscore();

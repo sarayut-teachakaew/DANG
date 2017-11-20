@@ -16,7 +16,7 @@ public class Pic {
             ,monster_charger,monster_gunner,player,spawn_tile,tcard_money,tcard_shoot,tcard_spark
             ,tcard_wall,tower_money,tower_shoot,tower_spark,tower_wall,unseen_tile,coin_pic
             ,floor01,floor02,floor03,floor04
-            ,money,moneypic,rock,rock2,rock3,shoot,sparkpic,spark,spawnpic,spawn,towerpic,tower,wallpic,wall;
+            ,money,moneypic,rock,rock2,rock3,shoot,sparkpic,spark,spawnpic,spawn,towerpic,tower,wallpic,wall,logo;
     public Bitmap floor[],rock0[];
 
 
@@ -46,11 +46,11 @@ public class Pic {
             controller_move=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.controller_move);
             controller_move_unactive=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.controller_move_unactive);
 
-            monster_bommer=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.monster_bommer);
-            monster_charger=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.monster_charger);
-            monster_gunner=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.monster_gunner);
+            //monster_bommer=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.monster_bommer);
+            monster_charger=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.m_charger);
+            //monster_gunner=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.monster_gunner);
 
-            player=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.player);
+            player=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.m_player);
 
             floor01=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.floor01);
             floor02=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.floor02);
@@ -72,8 +72,8 @@ public class Pic {
 
 
         }
-
-        card_null=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.card_null);
+        logo = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.logo);
+        //card_null=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.card_null);
 
         tcard_money=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.money);
         tcard_shoot=bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.shoot);

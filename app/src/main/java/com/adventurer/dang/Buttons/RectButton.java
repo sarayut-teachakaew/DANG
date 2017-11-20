@@ -69,7 +69,7 @@ public class RectButton implements MyButton{
         }
     }
     public boolean hitCheck(Point CP, Rect hitBox){
-        if (hitBox.contains((int)CP.x,(int)CP.y)){rectColor=Color.WHITE;return true;}
+        if (hitBox.contains((int)CP.x,(int)CP.y)){/*rectColor=Color.WHITE;*/return true;}
         return false;
     }
     public boolean hitCheck(Point CP){

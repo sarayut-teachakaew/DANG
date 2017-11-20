@@ -122,6 +122,10 @@ public class Backpack{
             System.out.println("เศร้า");
         }
     }
+    public static  void clearCard(){
+        cards = new ArrayList<>();
+        saveCard();
+    }
     public static void saveCoin(){
         SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor;
@@ -133,7 +137,7 @@ public class Backpack{
     }
     public static void loadCoin(){
         SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
-        int getCoin = sh.getInt("COIN",10);
+        int getCoin = sh.getInt("COIN",5);
         COIN = getCoin;
     }
     public static void savescore(){
@@ -146,7 +150,7 @@ public class Backpack{
     }
     public static void loadscore(){
         SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
-        int getScore = sh.getInt("Score",10);
+        int getScore = sh.getInt("Score",0);
         score = getScore;
     }
 
