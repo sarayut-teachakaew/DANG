@@ -71,6 +71,7 @@ public class Tower extends TextureButton implements TileObject {
     public Boolean clickCB(Point CP){
         for(int b = 0;b<CirBut.length;b++)if(CirBut[b].hitCheck(CP)){
             if(b==CB_SELL){
+                Backpack.addCard(this.getCard());
                 die();
                 GameScene.MONEY+=30;
             }

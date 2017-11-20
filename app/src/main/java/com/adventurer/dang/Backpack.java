@@ -28,7 +28,10 @@ import java.util.Set;
  */
 
 public class Backpack{
-    public static int COIN, score;
+    public static int COIN;
+    public static int score = 0;
+    public static int check_score;
+
     private static ArrayList<Card> cards = new ArrayList<>();
     private static ArrayList<Card> delC = new ArrayList<>();
     private static ArrayList<Card> addC = new ArrayList<>();
@@ -119,21 +122,33 @@ public class Backpack{
             System.out.println("เศร้า");
         }
     }
-//    public static void saveCoin(){
-//        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor;
-//        editor = sh.edit();
-//
-//        editor.putInt("COIN",COIN);
-//        editor.commit();
-//
-//    }
-//    public static void loadCoin(){
-//        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
-//        int getCoin = sh.getInt("COIN",10);
-//    }
-//    public static void savescore(){}
-//    public static void loadscore(){}
+    public static void saveCoin(){
+        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = sh.edit();
+
+        editor.putInt("COIN",COIN);
+        editor.commit();
+
+    }
+    public static void loadCoin(){
+        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
+        int getCoin = sh.getInt("COIN",10);
+        COIN = getCoin;
+    }
+    public static void savescore(){
+        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = sh.edit();
+
+        editor.putInt("Score",score);
+        editor.commit();
+    }
+    public static void loadscore(){
+        SharedPreferences sh = Constants.mainActivity.getSharedPreferences("saveData", Context.MODE_PRIVATE);
+        int getScore = sh.getInt("Score",10);
+        score = getScore;
+    }
 
     @NonNull
     public static Boolean click(Point CP){

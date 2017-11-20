@@ -7,12 +7,16 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.adventurer.dang.Backpack;
+import com.adventurer.dang.Balloon;
 import com.adventurer.dang.Buttons.TextureButton;
 import com.adventurer.dang.Constants;
 import com.adventurer.dang.Controller;
 import com.adventurer.dang.Pic;
 import com.adventurer.dang.Text;
 import com.adventurer.dang.Tiles.TileManager;
+
+import static com.adventurer.dang.Backpack.check_score;
+import static com.adventurer.dang.Backpack.score;
 
 
 /**
@@ -30,6 +34,7 @@ public class GameScene implements Scene {
     private Point dragPev,dragCur;
     private Point posMDown,posMUP;
     private boolean dragBP = false;
+
 
     public GameScene(SceneManager manager){
         pic = new Pic(manager.GAME_SCENE);
@@ -54,6 +59,12 @@ public class GameScene implements Scene {
     public void update(){
         if(tileMan.player.getHp()<=0){
             manager.activeScene = SceneManager.MENU_SCENE;
+            Backpack.saveCoin();
+            check_score = 0;
+            if(check_score > score){
+                score = check_score;
+                Backpack.savescore();
+            }
             terminate();
         }
         ctrMove.control(tileMan.player);
@@ -69,6 +80,11 @@ public class GameScene implements Scene {
         Text moneyTxt = new Text(new Point((int)(Constants.SCREEN_WIDTH/2),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*80))
         ,(int)MONEY+" G",Color.rgb(255,215,0),Constants.SCREEN_SCALE*100);
         moneyTxt.draw(canvas);
+
+        Text scoreTxt = new Text(new Point((int)(Constants.SCREEN_WIDTH/3),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*80))
+                ,"Score : "+(int) check_score,Color.rgb(0,0,0),Constants.SCREEN_SCALE*300);
+        scoreTxt.draw(canvas);
+
     }
     public void terminate(){
         Backpack.close();

@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import com.adventurer.dang.Backpack;
+import com.adventurer.dang.Balloon;
 import com.adventurer.dang.Buttons.MidBar;
 import com.adventurer.dang.Constants;
 import com.adventurer.dang.Scenes.GameScene;
@@ -19,6 +21,9 @@ import com.adventurer.dang.Towers.SparkTower;
 import com.adventurer.dang.Towers.WallTower;
 
 import java.util.ArrayList;
+
+import static com.adventurer.dang.Backpack.check_score;
+import static com.adventurer.dang.Backpack.score;
 
 /**
  * Created by x_x on 17/11/2560.
@@ -35,6 +40,7 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     private double holdSec=0,timeStart=Constants.INIT_TIME;
     private float chargeSec = 0.7f;
     private MidBar chargeBar;
+    private Balloon balli;
 
     public Charger(TileManager manager, int x, int y ){
         super();
@@ -251,6 +257,20 @@ public class Charger extends SimpleBoukensha implements Boukensha {
     public void die() {
         super.die();
         GameScene.MONEY+=30;
+        check_score++;
+
+        if(check_score > score){
+            score = check_score;
+            Backpack.savescore();
+
+        }
+
+//        if(Math.random()>0.9){
+            manager.alert.pop("Get Coin !!!",Color.rgb(0,0,0));
+            Backpack.COIN++;
+            Backpack.saveCoin();
+//        }
+
     }
 
 }

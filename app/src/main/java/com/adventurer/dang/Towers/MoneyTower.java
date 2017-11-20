@@ -21,7 +21,7 @@ public class MoneyTower  extends Tower implements AllTower,TileObject {
     private float goldP=10;
 
     public MoneyTower(Tile tile,Card card){
-        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tower_money),card);
+        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.moneypic),card);
         setStdCB();this.card=card;
         CB_UPGRADE=0;CB_SELL=1;CB_CANCEL=2;
         ts=System.currentTimeMillis();

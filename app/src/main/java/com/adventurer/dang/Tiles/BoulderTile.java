@@ -21,8 +21,8 @@ public class BoulderTile extends TextureButton implements Tile  {
     public static int CB_BUY=0,CB_CANCEL=1;
 
     public BoulderTile(Point position,TileManager TM){
-        super(position, Constants.TILE_SIZE,Constants.TILE_SIZE
-                ,GameScene.pic.boulder_tile);
+        super(position, Constants.TILE_SIZE+5,Constants.TILE_SIZE+5
+                ,GameScene.pic.randomBoulderTile());
 
         tileMan=TM;
 

@@ -10,6 +10,7 @@ import com.adventurer.dang.Boukenshas.Player;
 import com.adventurer.dang.Tiles.Tile;
 import com.adventurer.dang.Tiles.TileManager;
 import com.adventurer.dang.Tiles.TileObject;
+import com.adventurer.dang.Towers.Tower;
 
 /**
  * Created by x_x on 16/11/2560.
@@ -52,16 +53,19 @@ public class Bullet implements TileObject {
         if(pos.x<0||pos.x>manager.getWidth()||pos.y<0||pos.y>manager.getHeight())manager.delBullet(this);
 
         TileObject TO = manager.visionCheck(pos.x,pos.y,notThis);
-        if(TO !=null &&TO instanceof Boukensha){
+        if(TO !=null){
+        if (TO instanceof Tile) {
+            if(!(((Tile) TO).isWalkable())&&TO!=notThis)manager.delBullet(this);}
+        else if (TO instanceof Tower) {
+            if(TO!=notThis)manager.delBullet(this);}
+        else if(TO instanceof Boukensha) {
             if(type==DAMAGE_ALL||(((Boukensha)TO).isFriendly()&&type==DAMAGE_FRIENDLY)||(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET))){
                 TO.pushHp(-power);
                 manager.delBullet(this);
-                if (TO instanceof Tile) {
-                    if(!(((Tile) TO).isWalkable())&&TO!=notThis)manager.delBullet(this);
-                }else if(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET)){
-                    ((Boukensha)TO).getAttention(firePos);
-                }
+            }else if(!((Boukensha)TO).isFriendly()&&(type==DAMAGE_ENEMY||type==PLAYER_BULLET)){
+                ((Boukensha)TO).getAttention(firePos);
             }
+        }
         }
     }
     public void draw(Canvas canvas) {

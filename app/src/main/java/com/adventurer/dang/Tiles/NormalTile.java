@@ -24,8 +24,8 @@ public class NormalTile extends TextureButton implements Tile {
     public static int CB_BUILD=0,CB_WARP=1,CB_CANCEL=2;
 
     public NormalTile(Point position,TileManager TM){
-        super(position,Constants.TILE_SIZE,Constants.TILE_SIZE
-                ,GameScene.pic.normal_tile);
+        super(position,Constants.TILE_SIZE+5,Constants.TILE_SIZE+5
+                ,GameScene.pic.randomNormalTile());
 
         tileMan=TM;
 
@@ -123,7 +123,7 @@ public class NormalTile extends TextureButton implements Tile {
     @Override
     public void delTower() {
         if(!ownsTower)return;
-        Backpack.addCard(tower.getCard());
+        //Backpack.addCard(tower.getCard());
         ownsTower = false;
         tower = null;
     }

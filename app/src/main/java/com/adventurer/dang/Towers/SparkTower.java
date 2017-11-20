@@ -15,7 +15,7 @@ import com.adventurer.dang.Tiles.TileObject;
 
 public class SparkTower   extends Tower implements AllTower,TileObject {
   public SparkTower(Tile tile,Card card){
-        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tower_spark),card);
+        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sparkpic),card);
         setStdCB();this.card=card;
         CB_UPGRADE=0;CB_SELL=1;CB_CANCEL=2;
     }

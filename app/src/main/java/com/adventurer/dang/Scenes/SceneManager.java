@@ -24,6 +24,8 @@ public class SceneManager {
         pic = new Pic(-1);
 
         Backpack.loadCard();
+        Backpack.loadCoin();
+        Backpack.loadscore();
 
         /*Backpack.addCard(new Card(Card.MONEY_TOWER));
         Backpack.addCard(new Card(Card.WALL_TOWER));

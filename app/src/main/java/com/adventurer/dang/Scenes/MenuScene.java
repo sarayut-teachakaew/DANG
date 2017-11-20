@@ -12,6 +12,10 @@ import com.adventurer.dang.Buttons.RectButton;
 import com.adventurer.dang.Buttons.TextureButton;
 import com.adventurer.dang.Card;
 import com.adventurer.dang.Constants;
+import com.adventurer.dang.Text;
+
+import static com.adventurer.dang.Backpack.COIN;
+import static com.adventurer.dang.Backpack.score;
 
 /**
  * Created by x_x on 4/11/2560.
@@ -53,6 +57,17 @@ public class MenuScene implements Scene {
         if(newCard!=null)newCard.draw(canvas);
 
         ball.draw(canvas);
+
+        Text coinTxt = new Text(new Point((int)(Constants.SCREEN_WIDTH-Constants.SCREEN_SCALE*50),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*50))
+                ,(int) COIN+"",Color.rgb(0,0,0),Constants.SCREEN_SCALE*300);
+        coinTxt.draw(canvas);
+
+        Text scoreTxt = new Text(new Point((int)(Constants.SCREEN_WIDTH/2),(int)(Constants.SCREEN_HEIGHT-Constants.SCREEN_SCALE*80))
+                ,"Best Score : "+(int) score,Color.rgb(0,0,0),Constants.SCREEN_SCALE*300);
+        scoreTxt.draw(canvas);
+
+
+
     }
     public void terminate(){
         setButton();
@@ -73,14 +88,19 @@ public class MenuScene implements Scene {
 
                 }
                 if(coinBut.hitCheck(new Point((int)event.getX(),(int)event.getY()))){
-                    newCard = new Card();
-                    newCard.width = (int)(Constants.SCREEN_SCALE*600);
-                    newCard.height = (int)(Constants.SCREEN_SCALE*900);
-                    newCard.setStartPos(Constants.SCREEN_WIDTH/4,Constants.SCREEN_HEIGHT+newCard.height/2);
-                    newCard.setDestPos(Constants.SCREEN_WIDTH/4,Constants.SCREEN_HEIGHT/2);
-                    Backpack.addCard(newCard);
+                    if(COIN > 0) {
+                        COIN--;
+                        newCard = new Card();
+                        newCard.width = (int) (Constants.SCREEN_SCALE * 600);
+                        newCard.height = (int) (Constants.SCREEN_SCALE * 900);
+                        newCard.setStartPos(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT + newCard.height / 2);
+                        newCard.setDestPos(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 2);
+                        Backpack.addCard(newCard);
+                        openCard=true;
+                    }
 
-                    openCard=true;
+
+
                 }
                 else if(playButton.hitCheck(new Point((int)event.getX(),(int)event.getY()))) {
                     manager.reGame();

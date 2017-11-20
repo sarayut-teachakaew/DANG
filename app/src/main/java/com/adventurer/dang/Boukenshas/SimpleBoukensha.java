@@ -13,6 +13,9 @@ import com.adventurer.dang.Buttons.FullBar;
 import com.adventurer.dang.Constants;
 import com.adventurer.dang.Tiles.TileManager;
 
+import static com.adventurer.dang.Backpack.check_score;
+import static com.adventurer.dang.Backpack.score;
+
 /**
  * Created by x_x on 17/11/2560.
  */
@@ -78,13 +81,7 @@ public class SimpleBoukensha implements Boukensha{
     @Override
     public void die() {
         manager.delBoukensha(this);
-//        Backpack.score++;
-//
-//        if(Math.random()>0.9){
-//            manager.alert.pop("Get Coin !!!",Color.rgb(0,0,0));
-//            Backpack.COIN++;
-//
-//        }
+
     }
 
     @Override

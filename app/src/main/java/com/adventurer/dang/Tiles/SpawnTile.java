@@ -22,7 +22,7 @@ public class SpawnTile extends TextureButton implements Tile  {
     private float wait=10;
 
     public SpawnTile(Point position, TileManager TM){
-        super(position, Constants.TILE_SIZE,Constants.TILE_SIZE
+        super(position, Constants.TILE_SIZE+5,Constants.TILE_SIZE+5
                 , GameScene.pic.spawn_tile);
 
         tileMan=TM;

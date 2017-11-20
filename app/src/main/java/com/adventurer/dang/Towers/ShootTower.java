@@ -26,7 +26,7 @@ public class ShootTower   extends Tower implements AllTower,TileObject {
     private float delaySec=2,damage=1,rng=1000,Bspd=Constants.SCREEN_SCALE*30;
 
     public ShootTower(Tile tile,Card card){
-        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.tower_shoot),card);
+        super(tile,new BitmapFactory().decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.towerpic),card);
         setStdCB();this.card=card;
         CB_UPGRADE=0;CB_SELL=1;CB_CANCEL=2;
 
